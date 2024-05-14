@@ -18,7 +18,27 @@ server.get('/api/users', (req, res) => {
                 stack: err.stack
             })
         })
-})
+});
+server.get('/api/users/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'error getting user',
+                err: err.message,
+                stack: err.stack
+            })
+        })
+});
+
+// server.post('/api/users', (req, res) => {
+//     User.find()
+//         .then(users => {
+//             users.push({  })
+//         })
+// })
 
 
 server.use('*', (req, res) => {
